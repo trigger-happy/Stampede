@@ -34,7 +34,7 @@ may_proto_orx* may_proto_orx::instance()
 may_proto_orx::may_proto_orx()
 {
 	m_clock = orxClock_FindFirst( orx2F( -1.0f ), orxCLOCK_TYPE_CORE );
-	orxClock_Register( m_clock, cb::inputUpdate<may_proto_orx>, s_instance, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
+	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, s_instance, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
 }
 
 orxSTATUS may_proto_orx::update()
@@ -48,7 +48,7 @@ orxSTATUS may_proto_orx::update()
 	return result;
 }
 
-void may_proto_orx::inputUpdate( const orxCLOCK_INFO* clockInfo )
+void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
 	if( orxInput_HasNewStatus( "BluePaper" ) )
 	{

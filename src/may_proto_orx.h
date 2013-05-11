@@ -12,7 +12,7 @@ public:
 	static may_proto_orx* instance();
 	
 	// meant for callback, don't touch
-	void orxFASTCALL inputUpdate( const orxCLOCK_INFO* clockInfo );
+	void orxFASTCALL clockUpdate( const orxCLOCK_INFO* clockInfo );
 	
 private:
 	may_proto_orx();

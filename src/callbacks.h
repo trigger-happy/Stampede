@@ -5,9 +5,9 @@
 namespace callbacks
 {
 	template<typename T>
-	void orxFASTCALL inputUpdate( const orxCLOCK_INFO* clockInfo, void* context )
+	void orxFASTCALL clockUpdate( const orxCLOCK_INFO* clockInfo, void* context )
 	{
-		static_cast<T*>( context )->inputUpdate( clockInfo );
+		static_cast<T*>( context )->clockUpdate( clockInfo );
 	}
 }
 
