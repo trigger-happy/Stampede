@@ -11,10 +11,16 @@ public:
 	
 	static may_proto_orx* instance();
 	
+	// meant for callback, don't touch
+	void orxFASTCALL inputUpdate( const orxCLOCK_INFO* clockInfo );
+	
 private:
 	may_proto_orx();
 	
 	orxSTATUS orxFASTCALL update();
+	
+private:
+	orxCLOCK*	m_clock;
 };
 
 #endif // MAY_PROTO_ORX_H
