@@ -8,6 +8,6 @@ install(
 	FILES
 	${ORX_PLATFORM_DIR}/lib/liborx.so
 	${ORX_PLATFORM_DIR}/lib/liborxd.so
-	DESTINATION bin
+	DESTINATION ./
 	CONFIGURATIONS Release Debug RelWithDebInfo
 )

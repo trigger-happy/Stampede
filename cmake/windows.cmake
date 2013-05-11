@@ -23,6 +23,6 @@ install(
 	FILES
 	${ORX_PLATFORM_DIR}/lib/orx.dll
 	${ORX_PLATFORM_DIR}/lib/orxd.dll
-	DESTINATION bin
+	DESTINATION ./
 	CONFIGURATIONS Release Debug RelWithDebInfo
 )

@@ -15,9 +15,9 @@ target_link_libraries(
 	${ORX_LIBRARIES}
 )
 
-install(
-	TARGETS may_proto_orx
-	BUNDLE DESTINATION bin
-	RUNTIME DESTINATION bin
-	CONFIGURATIONS All
-)
+# install(
+# 	TARGETS may_proto_orx
+# 	BUNDLE DESTINATION ${CMAKE_BUILD_TYPE}
+# 	RUNTIME DESTINATION ${CMAKE_BUILD_TYPE}
+# 	CONFIGURATIONS All
+# )

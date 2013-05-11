@@ -10,7 +10,7 @@ orxSTATUS may_proto_orx::init()
 	{
 		s_instance = new may_proto_orx();
 		orxViewport_CreateFromConfig( "Viewport" );
-		orxObject_CreateFromConfig( "Object" );
+// 		orxObject_CreateFromConfig( "Object" );
 	}
 	
 	return orxSTATUS_SUCCESS;
@@ -53,14 +53,17 @@ void may_proto_orx::inputUpdate( const orxCLOCK_INFO* clockInfo )
 	if( orxInput_HasNewStatus( "BluePaper" ) )
 	{
 		orxLOG( "Blue paper" );
+		orxObject_CreateFromConfig( "BluePaper" );
 	}
 	else if( orxInput_HasNewStatus( "GreenPaper" ) )
 	{
 		orxLOG( "Green paper" );
+		orxObject_CreateFromConfig( "GreenPaper" );
 	}
 	else if( orxInput_HasNewStatus( "RedPaper" ) )
 	{
 		orxLOG( "Red paper " );
+		orxObject_CreateFromConfig( "RedPaper" );
 	}
 	else if( orxInput_HasNewStatus( "JunkPaper" ) )
 	{
