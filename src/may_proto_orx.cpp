@@ -35,6 +35,8 @@ may_proto_orx::may_proto_orx()
 {
 	m_clock = orxClock_FindFirst( orx2F( -1.0f ), orxCLOCK_TYPE_CORE );
 	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, s_instance, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
+	
+	m_generator = PaperGeneratorPtr( new PaperGenerator() );
 }
 
 orxSTATUS may_proto_orx::update()
