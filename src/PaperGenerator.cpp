@@ -48,6 +48,7 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 	{
 		if( m_currentPaper->paperType() == stamp )
 		{
+			m_currentPaper->moveOutOfTable();
 			if( !m_paperStack.empty() )
 			{
 				setCurrentPaper( m_paperStack.back() );
@@ -88,6 +89,8 @@ void PaperGenerator::spawnPaper()
 
 void PaperGenerator::addPaperToStack( Paper* paper )
 {
+// 	paper->dropToStack();
+	
 	m_paperStack.emplace_back( paper );
 	
 	if( m_paperStack.size() >= c_maxStackSize )
