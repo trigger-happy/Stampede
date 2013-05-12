@@ -2,7 +2,15 @@
 #include "may_proto_orx.h"
 
 static may_proto_orx* s_instance = nullptr;
+
 namespace cb = callbacks;
+
+#define ON_KEY_PRESS(X) static bool pressed = false; \
+	pressed = !pressed; \
+	if( pressed ) \
+	{ \
+		X; \
+	}
 
 orxSTATUS may_proto_orx::init()
 {
@@ -34,7 +42,7 @@ may_proto_orx* may_proto_orx::instance()
 may_proto_orx::may_proto_orx()
 {
 	m_clock = orxClock_FindFirst( orx2F( -1.0f ), orxCLOCK_TYPE_CORE );
-	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, s_instance, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
+	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, this, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
 	
 	m_generator = PaperGeneratorPtr( new PaperGenerator() );
 }
@@ -54,21 +62,31 @@ void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
 	if( orxInput_HasNewStatus( "BluePaper" ) )
 	{
-		orxLOG( "Blue paper" );
-		orxObject_CreateFromConfig( "BluePaper" );
+		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::BLUE ) )
 	}
 	else if( orxInput_HasNewStatus( "GreenPaper" ) )
 	{
-		orxLOG( "Green paper" );
-		orxObject_CreateFromConfig( "GreenPaper" );
+		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::GREEN ) )
 	}
 	else if( orxInput_HasNewStatus( "RedPaper" ) )
 	{
-		orxLOG( "Red paper " );
-		orxObject_CreateFromConfig( "RedPaper" );
+		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::RED ) )
 	}
 	else if( orxInput_HasNewStatus( "JunkPaper" ) )
 	{
-		orxLOG( "Junk paper " );
+		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::JUNK ) )
+	}
+	
+	if( orxInput_HasNewStatus( "StartGame" ) )
+	{
+		ON_KEY_PRESS( m_generator->start() )
+	}
+	else if( orxInput_HasNewStatus( "StopGame" ) )
+	{
+		ON_KEY_PRESS( m_generator->stop() )
+	}
+	else if( orxInput_HasNewStatus( "ResetGame" ) )
+	{
+		ON_KEY_PRESS( m_generator->reset() )
 	}
 }

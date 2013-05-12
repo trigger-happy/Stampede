@@ -4,6 +4,8 @@ add_executable(
 	WIN32
 	MACOSX_BUNDLE
 	
+	Paper.h
+	Paper.cpp
 	PaperGenerator.h
 	PaperGenerator.cpp
 	may_proto_orx.h
