@@ -21,12 +21,17 @@ public:
 		return m_type;
 	}
 	
-	orxVECTOR position() const;
+	orxVECTOR position();
 	void setPosition( const orxVECTOR& pos );
+	
+	void moveToCenter();
+	void moveOutOfTable();
+	void dropToStack( const orxVECTOR& pos );
 	
 private:
 	PAPER_TYPE	m_type;
 	orxOBJECT*	m_object;
+	orxVECTOR	m_position;
 };
 
 #endif // PAPER_H

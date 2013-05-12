@@ -1,23 +1,53 @@
 #include <cassert>
+#include <string>
+#include <array>
 #include "Paper.h"
 
+using namespace std;
+
+const static array<string, 4> s_objectNames = {
+	"RedPaper",
+	"GreenPaper",
+	"BluePaper",
+	"JunkPaper"
+};
 
 Paper::Paper( Paper::PAPER_TYPE type )
 {
-	assert( static_cast<int32_t>( type ) < 4 );
+	int32_t index = static_cast<int32_t>( type );
+	assert( index < 4 );
 	
-	// load up the paper here
+	m_object = orxObject_CreateFromConfig( s_objectNames[index].c_str() );
+	
+	orxConfig_PushSection( "PaperVars" );
+	orxConfig_GetVector( "StartPos", &m_position );
+	orxConfig_PopSection();
+	
+	orxObject_SetPosition( m_object, &m_position );
 }
 
-orxVECTOR Paper::position() const
+orxVECTOR Paper::position()
 {
-	//TODO changeme
-	orxVECTOR pos;
-	memset( &pos, 0, sizeof( pos ) );
-	return orxVECTOR();
+	orxObject_GetPosition( m_object, &m_position );
+	return m_position;
 }
 
 void Paper::setPosition( const orxVECTOR& pos )
 {
-	//TODO implement me
+	orxObject_SetPosition( m_object, &pos );
+}
+
+void Paper::moveToCenter()
+{
+
+}
+
+void Paper::moveOutOfTable()
+{
+
+}
+
+void Paper::dropToStack( const orxVECTOR& pos )
+{
+
 }
