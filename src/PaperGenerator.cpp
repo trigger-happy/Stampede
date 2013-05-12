@@ -90,6 +90,16 @@ void PaperGenerator::spawnPaper()
 void PaperGenerator::addPaperToStack( Paper* paper )
 {
 // 	paper->dropToStack();
+	orxVECTOR pos;
+	orxConfig_PushSection( "PaperVars" );
+	orxConfig_GetVector( "StackBaseOffset", &pos );
+	orxConfig_PopSection();
+	
+	//TODO put the multiplier in the config file
+	pos.fY -= m_paperStack.size() * 10;
+	pos.fZ -= m_paperStack.size() * 0.001;
+	
+	paper->setPosition( pos );
 	
 	m_paperStack.emplace_back( paper );
 	
