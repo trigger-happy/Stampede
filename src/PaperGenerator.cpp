@@ -100,4 +100,5 @@ void PaperGenerator::addPaperToStack( Paper* paper )
 void PaperGenerator::setCurrentPaper( Paper* paper )
 {
 	m_currentPaper = paper;
+	paper->moveToCenter();
 }

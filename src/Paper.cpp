@@ -39,15 +39,16 @@ void Paper::setPosition( const orxVECTOR& pos )
 
 void Paper::moveToCenter()
 {
-
+	auto status = orxObject_AddFX( m_object, "MoveToCenterFX" );
+	assert( status == orxSTATUS_SUCCESS );
 }
 
 void Paper::moveOutOfTable()
 {
-
+	orxObject_AddFX( m_object, "MoveOutOfTableFX" );
 }
 
 void Paper::dropToStack( const orxVECTOR& pos )
 {
-
+	//TODO implement me
 }
