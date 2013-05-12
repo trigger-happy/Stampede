@@ -5,6 +5,8 @@ static may_proto_orx* s_instance = nullptr;
 
 namespace cb = callbacks;
 
+#define ON_INPUT_DOWN(x) orxInput_HasNewStatus( x ) && orxInput_IsActive( x )
+
 orxSTATUS may_proto_orx::init()
 {
 	if( !s_instance )
@@ -53,32 +55,32 @@ orxSTATUS may_proto_orx::update()
 
 void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
-	if( orxInput_HasNewStatus( "BluePaper" ) && orxInput_IsActive( "BluePaper" ) )
+	if( ON_INPUT_DOWN( "BluePaper" ) )
 	{
 		m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
 	}
-	else if( orxInput_HasNewStatus( "GreenPaper" ) && orxInput_IsActive( "GreenPaper" ) )
+	else if( ON_INPUT_DOWN( "GreenPaper" ) )
 	{
 		m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
 	}
-	else if( orxInput_HasNewStatus( "RedPaper" ) && orxInput_IsActive( "RedPaper" ) )
+	else if( ON_INPUT_DOWN( "RedPaper" ) )
 	{
 		m_generator->stampPaper( PaperGenerator::STAMP::RED );
 	}
-	else if( orxInput_HasNewStatus( "JunkPaper" ) && orxInput_IsActive( "JunkPaper" ) )
+	else if( ON_INPUT_DOWN( "JunkPaper" ) )
 	{
 		m_generator->stampPaper( PaperGenerator::STAMP::JUNK );
 	}
 	
-	if( orxInput_HasNewStatus( "StartGame" ) && orxInput_IsActive( "StartGame" ) )
+	if( ON_INPUT_DOWN( "StartGame" ) )
 	{
 		m_generator->start();
 	}
-	else if( orxInput_HasNewStatus( "StopGame" ) && orxInput_IsActive( "StopGame" ) )
+	else if( ON_INPUT_DOWN( "StopGame" ) )
 	{
 		m_generator->stop();
 	}
-	else if( orxInput_HasNewStatus( "ResetGame" ) && orxInput_IsActive( "ResetGame" ) )
+	else if( ON_INPUT_DOWN( "ResetGame" ) )
 	{
 		m_generator->reset();
 	}
