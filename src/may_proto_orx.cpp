@@ -5,13 +5,6 @@ static may_proto_orx* s_instance = nullptr;
 
 namespace cb = callbacks;
 
-#define ON_KEY_PRESS(X) static bool pressed = false; \
-	pressed = !pressed; \
-	if( pressed ) \
-	{ \
-		X; \
-	}
-
 orxSTATUS may_proto_orx::init()
 {
 	if( !s_instance )
@@ -60,33 +53,33 @@ orxSTATUS may_proto_orx::update()
 
 void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
-	if( orxInput_HasNewStatus( "BluePaper" ) )
+	if( orxInput_HasNewStatus( "BluePaper" ) && orxInput_IsActive( "BluePaper" ) )
 	{
-		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::BLUE ) )
+		m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
 	}
-	else if( orxInput_HasNewStatus( "GreenPaper" ) )
+	else if( orxInput_HasNewStatus( "GreenPaper" ) && orxInput_IsActive( "GreenPaper" ) )
 	{
-		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::GREEN ) )
+		m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
 	}
-	else if( orxInput_HasNewStatus( "RedPaper" ) )
+	else if( orxInput_HasNewStatus( "RedPaper" ) && orxInput_IsActive( "RedPaper" ) )
 	{
-		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::RED ) )
+		m_generator->stampPaper( PaperGenerator::STAMP::RED );
 	}
-	else if( orxInput_HasNewStatus( "JunkPaper" ) )
+	else if( orxInput_HasNewStatus( "JunkPaper" ) && orxInput_IsActive( "JunkPaper" ) )
 	{
-		ON_KEY_PRESS( m_generator->stampPaper( PaperGenerator::STAMP::JUNK ) )
+		m_generator->stampPaper( PaperGenerator::STAMP::JUNK );
 	}
 	
-	if( orxInput_HasNewStatus( "StartGame" ) )
+	if( orxInput_HasNewStatus( "StartGame" ) && orxInput_IsActive( "StartGame" ) )
 	{
-		ON_KEY_PRESS( m_generator->start() )
+		m_generator->start();
 	}
-	else if( orxInput_HasNewStatus( "StopGame" ) )
+	else if( orxInput_HasNewStatus( "StopGame" ) && orxInput_IsActive( "StopGame" ) )
 	{
-		ON_KEY_PRESS( m_generator->stop() )
+		m_generator->stop();
 	}
-	else if( orxInput_HasNewStatus( "ResetGame" ) )
+	else if( orxInput_HasNewStatus( "ResetGame" ) && orxInput_IsActive( "ResetGame" ) )
 	{
-		ON_KEY_PRESS( m_generator->reset() )
+		m_generator->reset();
 	}
 }
