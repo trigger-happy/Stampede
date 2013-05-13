@@ -46,8 +46,6 @@ may_proto_orx::may_proto_orx()
 	
 	m_sceneManager = SceneManagerPtr( new SceneManager() );
 	setupScenes();
-	
-// 	m_scoreDisplay = orxObject_CreateFromConfig( "ScoreDisplay" );
 }
 
 void may_proto_orx::setupScenes()
@@ -56,6 +54,61 @@ void may_proto_orx::setupScenes()
 	auto gameScene = m_sceneManager->getScene( "GameScene" );
 	
 	m_scoreDisplay = gameScene->objects.at( "ScoreDisplay" );
+	
+	// title scene input handling
+	titleScene->frameUpdate = [this]( float dt )
+	{
+		if( IS_INPUT_DOWN( "GoToGameScene" ) )
+		{
+			m_sceneManager->pushScene( "GameScene" );
+		}
+	};
+	
+	// game scene input handling
+	gameScene->frameUpdate = [this]( float dt )
+	{
+		int32_t result = 0;
+		if( IS_INPUT_DOWN( "BluePaper" ) )
+		{
+			result = m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
+		}
+		else if( IS_INPUT_DOWN( "GreenPaper" ) )
+		{
+			result = m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
+		}
+		else if( IS_INPUT_DOWN( "RedPaper" ) )
+		{
+			result = m_generator->stampPaper( PaperGenerator::STAMP::RED );
+		}
+		else if( IS_INPUT_DOWN( "JunkPaper" ) )
+		{
+			result = m_generator->stampPaper( PaperGenerator::STAMP::JUNK );
+		}
+		
+		m_score += result;
+		if( m_score < 0 )
+		{
+			m_score = 0;
+		}
+		if( m_generator->isRunning() && result )
+		{
+			updateScoreDisplay();
+		}
+		
+		if( IS_INPUT_DOWN( "StartGame" ) )
+		{
+			m_generator->start();
+			updateScoreDisplay();
+		}
+		else if( IS_INPUT_DOWN( "StopGame" ) )
+		{
+			m_generator->stop();
+		}
+		else if( IS_INPUT_DOWN( "ResetGame" ) )
+		{
+			m_generator->reset();
+		}
+	};
 	
 	m_sceneManager->pushScene( "TitleScene" );
 }
@@ -73,52 +126,7 @@ orxSTATUS may_proto_orx::update()
 
 void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
-	int32_t result = 0;
-	if( IS_INPUT_DOWN( "BluePaper" ) )
-	{
-		result = m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
-	}
-	else if( IS_INPUT_DOWN( "GreenPaper" ) )
-	{
-		result = m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
-	}
-	else if( IS_INPUT_DOWN( "RedPaper" ) )
-	{
-		result = m_generator->stampPaper( PaperGenerator::STAMP::RED );
-	}
-	else if( IS_INPUT_DOWN( "JunkPaper" ) )
-	{
-		result = m_generator->stampPaper( PaperGenerator::STAMP::JUNK );
-	}
-
-	m_score += result;
-	if( m_score < 0 )
-	{
-		m_score = 0;
-	}
-	if( m_generator->isRunning() && result )
-	{
-		updateScoreDisplay();
-	}
-	
-	if( IS_INPUT_DOWN( "StartGame" ) )
-	{
-		m_generator->start();
-		updateScoreDisplay();
-	}
-	else if( IS_INPUT_DOWN( "StopGame" ) )
-	{
-		m_generator->stop();
-	}
-	else if( IS_INPUT_DOWN( "ResetGame" ) )
-	{
-		m_generator->reset();
-	}
-	
-	if( IS_INPUT_DOWN( "GoToGameScene" ) )
-	{
-		m_sceneManager->pushScene( "GameScene" );
-	}
+	m_sceneManager->frameUpdate( clockInfo->fDT );
 }
 
 void may_proto_orx::updateScoreDisplay()

@@ -29,6 +29,7 @@ class Scene
 {
 public:
 	typedef std::function<void ()> stackEvent;
+	typedef std::function<void (float)> frameEvent;
 	
 	Scene( const std::string& n );
 	
@@ -36,6 +37,8 @@ public:
 	stackEvent onPop;		//!< called when the scene is removed from the stack
 	stackEvent onSleep;		//!< called when the scene is no longer on top of the stack
 	stackEvent onResume;	//!< called when the scene is now on top of the stack
+	
+	frameEvent frameUpdate;
 	
 	std::unordered_map<std::string, orxOBJECT*>	objects;
 	std::string									inputSet;

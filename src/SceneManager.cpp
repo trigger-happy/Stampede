@@ -71,3 +71,8 @@ ScenePtr SceneManager::getScene( const string& name )
 {
 	return m_scenes.at( name );
 }
+
+void SceneManager::frameUpdate( float dt )
+{
+	m_sceneStack.top()->frameUpdate( dt );
+}

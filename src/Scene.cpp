@@ -48,6 +48,8 @@ Scene::Scene( const string& n )
 	};
 	onResume = onPush;
 	
+	frameUpdate = [this]( float dt ){};
+	
 	// load up the objects and disable them
 	orxConfig_PushSection( n.c_str() );
 	if( orxConfig_HasValue( "Objects" ) )

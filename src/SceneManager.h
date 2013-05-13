@@ -35,6 +35,7 @@ public:
 	void popScene();
 	ScenePtr getTopScene() const;
 	ScenePtr getScene( const std::string& name );
+	void frameUpdate( float dt );
 	
 private:
 	std::unordered_map<std::string, ScenePtr>	m_scenes;
