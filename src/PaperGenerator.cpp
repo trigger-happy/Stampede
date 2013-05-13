@@ -4,15 +4,18 @@
 namespace cb = callbacks;
 
 
-const static int32_t c_maxStackSize = 20;
-
-
 PaperGenerator::PaperGenerator()
 {
 	m_clock = orxClock_CreateFromConfig( "PaperGeneratorClock" );
 	orxClock_Register(
 		m_clock, cb::clockUpdate<PaperGenerator>, this, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL
 	);
+	
+	orxConfig_PushSection( "PaperGeneratorSettings" );
+	m_maxStackSize = orxConfig_GetS32( "MaxStackSize" );
+	m_scorePenalty = orxConfig_GetS32( "ScorePenalty" );
+	m_paperStackYOffset = orxConfig_GetS32( "PaperStackYOffset" );
+	orxConfig_PopSection();
 }
 
 void PaperGenerator::clockUpdate( const orxCLOCK_INFO* clockInfo )
@@ -63,8 +66,7 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 		}
 		else
 		{
-			//TODO store this in a config file
-			return -1;
+			return m_scorePenalty;
 		}
 	}
 	
@@ -95,18 +97,20 @@ void PaperGenerator::addPaperToStack( Paper* paper )
 	orxConfig_GetVector( "StackBaseOffset", &pos );
 	orxConfig_PopSection();
 	
-	//TODO put the multiplier in the config file
-	pos.fY -= m_paperStack.size() * 10;
+	pos.fY -= m_paperStack.size() * m_paperStackYOffset;
 	pos.fZ -= m_paperStack.size() * 0.001;
 	
 	paper->setPosition( pos );
 	
 	m_paperStack.emplace_back( paper );
 	
-	if( m_paperStack.size() >= c_maxStackSize )
+	if( m_paperStack.size() >= m_maxStackSize )
 	{
 		stop();
-		m_onGameOver();
+		if( m_onGameOver )
+		{
+			m_onGameOver();
+		}
 	}
 }
 

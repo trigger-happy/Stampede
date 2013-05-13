@@ -42,6 +42,9 @@ private:
 	double						m_elapsed = 0;
 	orxCLOCK*					m_clock = nullptr;
 	Paper*						m_currentPaper = nullptr;
+	int32_t						m_maxStackSize = 0;
+	int32_t						m_scorePenalty = 0;
+	int32_t						m_paperStackYOffset = 0;
 	
 	GameOverFunc				m_onGameOver;
 };
