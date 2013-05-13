@@ -82,7 +82,7 @@ void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 	{
 		m_score = 0;
 	}
-	if( m_generator->isRunning() )
+	if( m_generator->isRunning() && result )
 	{
 		updateScoreDisplay();
 	}
@@ -90,6 +90,7 @@ void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 	if( IS_INPUT_DOWN( "StartGame" ) )
 	{
 		m_generator->start();
+		updateScoreDisplay();
 	}
 	else if( IS_INPUT_DOWN( "StopGame" ) )
 	{
