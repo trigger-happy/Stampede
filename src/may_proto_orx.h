@@ -21,6 +21,7 @@ private:
 	
 	orxSTATUS orxFASTCALL update();
 	void updateScoreDisplay();
+	void setupScenes();
 	
 	void onGameOver();
 	

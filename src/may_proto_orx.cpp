@@ -45,8 +45,19 @@ may_proto_orx::may_proto_orx()
 	m_generator->atGameOver( std::bind( &may_proto_orx::onGameOver, this ) );
 	
 	m_sceneManager = SceneManagerPtr( new SceneManager() );
+	setupScenes();
 	
-	m_scoreDisplay = orxObject_CreateFromConfig( "ScoreDisplay" );
+// 	m_scoreDisplay = orxObject_CreateFromConfig( "ScoreDisplay" );
+}
+
+void may_proto_orx::setupScenes()
+{
+	auto titleScene = m_sceneManager->getScene( "TitleScene" );
+	auto gameScene = m_sceneManager->getScene( "GameScene" );
+	
+	m_scoreDisplay = gameScene->objects.at( "ScoreDisplay" );
+	
+	m_sceneManager->pushScene( "TitleScene" );
 }
 
 orxSTATUS may_proto_orx::update()
@@ -102,6 +113,11 @@ void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 	else if( IS_INPUT_DOWN( "ResetGame" ) )
 	{
 		m_generator->reset();
+	}
+	
+	if( IS_INPUT_DOWN( "GoToGameScene" ) )
+	{
+		m_sceneManager->pushScene( "GameScene" );
 	}
 }
 

@@ -21,20 +21,27 @@
 #define SCENE_H
 #include <functional>
 #include <string>
+#include <unordered_map>
+#include <boost/shared_ptr.hpp>
+#include <orx.h>
 
 class Scene
 {
 public:
 	typedef std::function<void ()> stackEvent;
 	
-	Scene( const std::string& name );
+	Scene( const std::string& n );
 	
-	stackEvent onPush;		//! called when the scene gets pushed to the stack
-	stackEvent onPop;		//! called when the scene is removed from the stack
-	stackEvent onSleep;		//! called when the scene is no longer on top of the stack
-	stackEvent onResume;	//! called when the scene is now on top of the stack
+	stackEvent onPush;		//!< called when the scene gets pushed to the stack
+	stackEvent onPop;		//!< called when the scene is removed from the stack
+	stackEvent onSleep;		//!< called when the scene is no longer on top of the stack
+	stackEvent onResume;	//!< called when the scene is now on top of the stack
 	
-protected:
+	std::unordered_map<std::string, orxOBJECT*>	objects;
+	std::string									inputSet;
+	std::string									name;
 };
+
+typedef boost::shared_ptr<Scene> ScenePtr;
 
 #endif // SCENE_H

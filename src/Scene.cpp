@@ -17,15 +17,53 @@
  *
  */
 
+#include <algorithm>
 #include "Scene.h"
 
-Scene::Scene( const std::string& name )
+using namespace std;
+
+Scene::Scene( const string& n )
+	: name( n )
 {
 	// set some default handlers
-	onPop = [this](){};
-	onPush = [this](){};
-	onSleep = [this](){};
-	onResume = [this](){};
+	onPop = [this](){
+		auto iter = objects.begin();
+		while( iter != objects.end() )
+		{
+			orxObject_Enable( iter->second, false );
+			++iter;
+		}
+	};
 	
-	//TODO: load up the objects here
+	onSleep = onPop;
+	
+	onPush = [this](){
+		auto iter = objects.begin();
+		while( iter != objects.end() )
+		{
+			orxObject_Enable( iter->second, true );
+			++iter;
+		}
+		orxInput_SelectSet( inputSet.c_str() );
+	};
+	onResume = onPush;
+	
+	// load up the objects and disable them
+	orxConfig_PushSection( n.c_str() );
+	if( orxConfig_HasValue( "Objects" ) )
+	{
+		auto numObjects = orxConfig_GetListCounter( "Objects" );
+		for( int i = 0; i < numObjects; ++i )
+		{
+			auto objectName = orxConfig_GetListString( "Objects", i );
+			auto object = orxObject_CreateFromConfig( objectName );
+			objects.emplace( make_pair( objectName, object ) );
+			
+			// disable the object for now
+			orxObject_Enable( object, false );
+		}
+	}
+	
+	inputSet = orxConfig_GetString( "InputSet" );
+	orxConfig_PopSection();
 }

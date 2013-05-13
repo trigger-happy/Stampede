@@ -33,11 +33,12 @@ public:
 	
 	void pushScene( const std::string& name );
 	void popScene();
-	Scene* getTopScene() const;
+	ScenePtr getTopScene() const;
+	ScenePtr getScene( const std::string& name );
 	
 private:
-	std::unordered_map<std::string, Scene>	m_scenes;
-	std::stack<Scene*>						m_sceneStack;
+	std::unordered_map<std::string, ScenePtr>	m_scenes;
+	std::stack<ScenePtr>						m_sceneStack;
 };
 
 typedef boost::shared_ptr<SceneManager> SceneManagerPtr;

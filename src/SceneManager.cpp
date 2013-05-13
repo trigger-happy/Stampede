@@ -31,13 +31,14 @@ SceneManager::SceneManager()
 	for( int32_t i = 0; i < numScenes; ++i )
 	{
 		auto sceneName = orxConfig_GetListString( "Scenes", i );
-		m_scenes.emplace( make_pair( sceneName, Scene( sceneName ) ) );
+		ScenePtr temp = ScenePtr( new Scene( sceneName ) );
+		m_scenes[sceneName] = temp;
 	}
 	
 	orxConfig_PopSection();
 }
 
-Scene* SceneManager::getTopScene() const
+ScenePtr SceneManager::getTopScene() const
 {
 	return m_sceneStack.top();
 }
@@ -62,6 +63,11 @@ void SceneManager::pushScene( const string& name )
 		m_sceneStack.top()->onSleep();
 	}
 	
-	m_sceneStack.emplace( &( m_scenes.at( name ) ) );
+	m_sceneStack.push( m_scenes.at( name ) );
 	m_sceneStack.top()->onPush();
+}
+
+ScenePtr SceneManager::getScene( const string& name )
+{
+	return m_scenes.at( name );
 }
