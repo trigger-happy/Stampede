@@ -21,6 +21,8 @@ private:
 	orxSTATUS orxFASTCALL update();
 	void updateScoreDisplay();
 	
+	void onGameOver();
+	
 private:
 	orxCLOCK*			m_clock;
 	orxOBJECT*			m_scoreDisplay;

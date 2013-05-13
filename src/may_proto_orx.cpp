@@ -1,3 +1,4 @@
+#include <functional>
 #include <boost/format.hpp>
 #include "callbacks.h"
 #include "may_proto_orx.h"
@@ -15,7 +16,6 @@ orxSTATUS may_proto_orx::init()
 	{
 		s_instance = new may_proto_orx();
 		orxViewport_CreateFromConfig( "Viewport" );
-// 		orxObject_CreateFromConfig( "Object" );
 	}
 	
 	return orxSTATUS_SUCCESS;
@@ -42,6 +42,7 @@ may_proto_orx::may_proto_orx()
 	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, this, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
 	
 	m_generator = PaperGeneratorPtr( new PaperGenerator() );
+	m_generator->atGameOver( std::bind( &may_proto_orx::onGameOver, this ) );
 	
 	m_scoreDisplay = orxObject_CreateFromConfig( "ScoreDisplay" );
 }
@@ -105,5 +106,11 @@ void may_proto_orx::clockUpdate( const orxCLOCK_INFO* clockInfo )
 void may_proto_orx::updateScoreDisplay()
 {
 	format msg = format( "Score: %1%" ) % m_score;
+	orxObject_SetTextString( m_scoreDisplay, msg.str().c_str() );
+}
+
+void may_proto_orx::onGameOver()
+{
+	format msg = format( "Gameover, your score is: %1%" ) % m_score;
 	orxObject_SetTextString( m_scoreDisplay, msg.str().c_str() );
 }
