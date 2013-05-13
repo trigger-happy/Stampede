@@ -29,6 +29,11 @@ public:
 		m_onGameOver = f;
 	}
 	
+	bool isRunning() const
+	{
+		return m_running;
+	}
+	
 private:
 	void spawnPaper();
 	void addPaperToStack( Paper* paper );

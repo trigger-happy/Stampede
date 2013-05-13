@@ -19,10 +19,14 @@ private:
 	may_proto_orx();
 	
 	orxSTATUS orxFASTCALL update();
+	void updateScoreDisplay();
 	
 private:
 	orxCLOCK*			m_clock;
+	orxOBJECT*			m_scoreDisplay;
 	PaperGeneratorPtr	m_generator;
+	
+	int32_t				m_score = 0;
 };
 
 #endif // MAY_PROTO_ORX_H
