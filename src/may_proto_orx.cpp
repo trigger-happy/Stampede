@@ -44,6 +44,8 @@ may_proto_orx::may_proto_orx()
 	m_generator = PaperGeneratorPtr( new PaperGenerator() );
 	m_generator->atGameOver( std::bind( &may_proto_orx::onGameOver, this ) );
 	
+	m_sceneManager = SceneManagerPtr( new SceneManager() );
+	
 	m_scoreDisplay = orxObject_CreateFromConfig( "ScoreDisplay" );
 }
 

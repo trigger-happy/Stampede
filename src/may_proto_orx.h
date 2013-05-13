@@ -1,6 +1,7 @@
 #ifndef MAY_PROTO_ORX_H
 #define MAY_PROTO_ORX_H
 #include <orx.h>
+#include "SceneManager.h"
 #include "PaperGenerator.h"
 
 class may_proto_orx
@@ -27,6 +28,7 @@ private:
 	orxCLOCK*			m_clock;
 	orxOBJECT*			m_scoreDisplay;
 	PaperGeneratorPtr	m_generator;
+	SceneManagerPtr		m_sceneManager;
 	
 	int32_t				m_score = 0;
 };

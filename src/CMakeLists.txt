@@ -4,6 +4,10 @@ add_executable(
 	WIN32
 	MACOSX_BUNDLE
 	
+	Scene.h
+	Scene.cpp
+	SceneManager.h
+	SceneManager.cpp
 	Paper.h
 	Paper.cpp
 	PaperGenerator.h
