@@ -15,6 +15,9 @@ PaperGenerator::PaperGenerator()
 	m_maxStackSize = orxConfig_GetS32( "MaxStackSize" );
 	m_scorePenalty = orxConfig_GetS32( "ScorePenalty" );
 	m_paperStackYOffset = orxConfig_GetS32( "PaperStackYOffset" );
+	m_timePerLevel = orxConfig_GetFloat( "TimePerLevel" );
+	m_levelIncrement = orxConfig_GetFloat( "LevelIncrement" );
+	m_baseGeneratorTime = orxConfig_GetFloat( "BaseGeneratorTime" );
 	orxConfig_PopSection();
 }
 
@@ -22,10 +25,12 @@ void PaperGenerator::clockUpdate( const orxCLOCK_INFO* clockInfo )
 {
 	if( m_running )
 	{
-		spawnPaper();
+		if( m_elapsed >= m_nextPaperSpawn )
+		{
+			spawnPaper();
+		}
 	}
 	
-	//TODO: adjust the clock here based on elapsed time
 	m_elapsed += clockInfo->fDT;
 }
 
@@ -87,6 +92,8 @@ void PaperGenerator::spawnPaper()
 	{
 		addPaperToStack( temp );
 	}
+	
+	setNextSpawnTime();
 }
 
 void PaperGenerator::addPaperToStack( Paper* paper )
@@ -118,4 +125,15 @@ void PaperGenerator::setCurrentPaper( Paper* paper )
 {
 	m_currentPaper = paper;
 	paper->moveToCenter();
+}
+
+void PaperGenerator::setNextSpawnTime()
+{
+	int32_t level = floor( m_elapsed / m_timePerLevel );
+	m_nextPaperSpawn = m_baseGeneratorTime - ( level * m_levelIncrement );
+	if( m_nextPaperSpawn <= 0.0 )
+	{
+		m_nextPaperSpawn = 0.1;
+	}
+	m_nextPaperSpawn += m_elapsed;
 }

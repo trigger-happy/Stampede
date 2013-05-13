@@ -33,19 +33,27 @@ private:
 	void spawnPaper();
 	void addPaperToStack( Paper* paper );
 	void setCurrentPaper( Paper* paper );
+	void setNextSpawnTime();
 	
 	
 	boost::object_pool<Paper>	m_paperPool;
 	std::vector<Paper*>			m_paperStack;
 	std::vector<Paper*>			m_exitingPapers;
-	bool						m_running = false;
-	double						m_elapsed = 0;
 	orxCLOCK*					m_clock = nullptr;
 	Paper*						m_currentPaper = nullptr;
+	bool						m_running = false;
+	double						m_elapsed = 0;
+	double						m_nextPaperSpawn = 0;
+	
+	// config vars
 	int32_t						m_maxStackSize = 0;
 	int32_t						m_scorePenalty = 0;
 	int32_t						m_paperStackYOffset = 0;
+	float						m_timePerLevel = 0;
+	float						m_levelIncrement = 0;
+	float						m_baseGeneratorTime = 0;
 	
+	// callback
 	GameOverFunc				m_onGameOver;
 };
 
