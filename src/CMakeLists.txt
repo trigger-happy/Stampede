@@ -23,6 +23,7 @@ target_link_libraries(
 	may_proto_orx
 	${Boost_LIBRARIES}
 	${ORX_LIBRARIES}
+	${ORX_EXTERN_LIBS}
 )
 
 # install(
