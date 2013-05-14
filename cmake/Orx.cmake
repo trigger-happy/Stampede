@@ -4,8 +4,10 @@ set(
 	CACHE PATH
 	"Path to the orx dev directory, should contain something like dev-{platform} folders"
 )
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(${ANDROID})
+	message("building for android")
+	include(cmake/android.cmake)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	include(cmake/osx.cmake)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	include(cmake/windows.cmake)

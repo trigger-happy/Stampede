@@ -1,4 +1,6 @@
 build/
+build-android/
+build-ios/
 docs/
 .kdev4/
 Doxyfile~
