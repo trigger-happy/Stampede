@@ -4,6 +4,8 @@ add_executable(
 	WIN32
 	MACOSX_BUNDLE
 	
+	SubmitterHands.h
+	SubmitterHands.cpp
 	Scene.h
 	Scene.cpp
 	SceneManager.h
