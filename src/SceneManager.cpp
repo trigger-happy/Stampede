@@ -47,10 +47,12 @@ void SceneManager::popScene()
 {
 	if( !m_sceneStack.empty() )
 	{
+		m_sceneStack.top()->scenePop();
 		m_sceneStack.top()->onPop();
 		m_sceneStack.pop();
 		if( !m_sceneStack.empty() )
 		{
+			m_sceneStack.top()->scenePush();
 			m_sceneStack.top()->onResume();
 		}
 	}
@@ -60,10 +62,12 @@ void SceneManager::pushScene( const string& name )
 {
 	if( !m_sceneStack.empty() )
 	{
+		m_sceneStack.top()->scenePop();
 		m_sceneStack.top()->onSleep();
 	}
 	
 	m_sceneStack.push( m_scenes.at( name ) );
+	m_sceneStack.top()->scenePush();
 	m_sceneStack.top()->onPush();
 }
 

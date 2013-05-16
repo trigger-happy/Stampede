@@ -26,7 +26,7 @@ Scene::Scene( const string& n )
 	: name( n )
 {
 	// set some default handlers
-	onPop = [this](){
+	scenePop = [this](){
 		auto iter = objects.begin();
 		while( iter != objects.end() )
 		{
@@ -35,9 +35,10 @@ Scene::Scene( const string& n )
 		}
 	};
 	
-	onSleep = onPop;
+	onSleep = [this](){};
+	onPop = [this](){};
 	
-	onPush = [this](){
+	scenePush = [this](){
 		auto iter = objects.begin();
 		while( iter != objects.end() )
 		{
@@ -46,7 +47,8 @@ Scene::Scene( const string& n )
 		}
 		orxInput_SelectSet( inputSet.c_str() );
 	};
-	onResume = onPush;
+	onPush = [this](){};
+	onResume = [this](){};
 	
 	frameUpdate = [this]( float dt ){};
 	

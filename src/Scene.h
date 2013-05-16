@@ -38,6 +38,10 @@ public:
 	stackEvent onSleep;		//!< called when the scene is no longer on top of the stack
 	stackEvent onResume;	//!< called when the scene is now on top of the stack
 	
+	// to be called by scene manager only
+	stackEvent scenePush;
+	stackEvent scenePop;
+	
 	frameEvent frameUpdate;
 	
 	std::unordered_map<std::string, orxOBJECT*>	objects;

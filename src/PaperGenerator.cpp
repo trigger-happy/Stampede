@@ -18,6 +18,7 @@ PaperGenerator::PaperGenerator()
 	m_timePerLevel = orxConfig_GetFloat( "TimePerLevel" );
 	m_levelIncrement = orxConfig_GetFloat( "LevelIncrement" );
 	m_baseGeneratorTime = orxConfig_GetFloat( "BaseGeneratorTime" );
+	m_gameStartDelay = orxConfig_GetFloat( "GameStartDelay" );
 	orxConfig_PopSection();
 }
 
@@ -37,6 +38,7 @@ void PaperGenerator::clockUpdate( const orxCLOCK_INFO* clockInfo )
 void PaperGenerator::start()
 {
 	m_running = true;
+	m_nextPaperSpawn = m_elapsed + m_gameStartDelay;
 }
 
 void PaperGenerator::reset()

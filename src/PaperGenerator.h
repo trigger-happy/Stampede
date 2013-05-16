@@ -57,6 +57,7 @@ private:
 	float						m_timePerLevel = 0;
 	float						m_levelIncrement = 0;
 	float						m_baseGeneratorTime = 0;
+	float						m_gameStartDelay = 0;
 	
 	// callback
 	GameOverFunc				m_onGameOver;

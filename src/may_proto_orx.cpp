@@ -97,8 +97,8 @@ void may_proto_orx::setupScenes()
 		
 		if( IS_INPUT_DOWN( "StartGame" ) )
 		{
-			m_generator->start();
-			updateScoreDisplay();
+// 			m_generator->start();
+// 			updateScoreDisplay();
 		}
 		else if( IS_INPUT_DOWN( "StopGame" ) )
 		{
@@ -108,6 +108,12 @@ void may_proto_orx::setupScenes()
 		{
 			m_generator->reset();
 		}
+	};
+	
+	gameScene->onPush = [this]()
+	{
+		m_generator->start();
+		updateScoreDisplay();
 	};
 	
 	m_sceneManager->pushScene( "TitleScene" );
