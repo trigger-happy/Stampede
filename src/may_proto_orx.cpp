@@ -6,7 +6,6 @@
 static may_proto_orx* s_instance = nullptr;
 
 const static std::string s_stampSoundName = "s_Stamp";
-const static std::string s_paperSoundName = "s_Paper";
 
 namespace cb = callbacks;
 using boost::format;

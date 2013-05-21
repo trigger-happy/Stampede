@@ -1,8 +1,10 @@
 #include "callbacks.h"
 #include "PaperGenerator.h"
 
+using namespace std;
 namespace cb = callbacks;
 
+const static string s_paperSoundName = "s_Paper";
 
 PaperGenerator::PaperGenerator()
 {
@@ -19,6 +21,10 @@ PaperGenerator::PaperGenerator()
 	m_levelIncrement = orxConfig_GetFloat( "LevelIncrement" );
 	m_baseGeneratorTime = orxConfig_GetFloat( "BaseGeneratorTime" );
 	m_gameStartDelay = orxConfig_GetFloat( "GameStartDelay" );
+	
+	string soundName = orxConfig_GetString( "PaperSpawnSound" );
+	m_paperSpawnSound = orxSound_CreateFromConfig( soundName.c_str() );
+	
 	orxConfig_PopSection();
 }
 
@@ -93,6 +99,11 @@ void PaperGenerator::spawnPaper()
 	else
 	{
 		addPaperToStack( temp );
+	}
+	
+	if( m_paperSpawnSound )
+	{
+		orxSound_Play( m_paperSpawnSound );
 	}
 	
 	setNextSpawnTime();
