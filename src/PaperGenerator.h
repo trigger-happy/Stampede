@@ -46,6 +46,7 @@ private:
 	std::vector<Paper*>			m_exitingPapers;
 	orxCLOCK*					m_clock = nullptr;
 	orxSOUND*					m_paperSpawnSound = nullptr;
+	orxSOUND*					m_stampSound = nullptr;
 	Paper*						m_currentPaper = nullptr;
 	bool						m_running = false;
 	double						m_elapsed = 0;

@@ -4,7 +4,6 @@
 using namespace std;
 namespace cb = callbacks;
 
-const static string s_paperSoundName = "s_Paper";
 
 PaperGenerator::PaperGenerator()
 {
@@ -24,6 +23,8 @@ PaperGenerator::PaperGenerator()
 	
 	string soundName = orxConfig_GetString( "PaperSpawnSound" );
 	m_paperSpawnSound = orxSound_CreateFromConfig( soundName.c_str() );
+	soundName = orxConfig_GetString( "StampSound" );
+	m_stampSound = orxSound_CreateFromConfig( soundName.c_str() );
 	
 	orxConfig_PopSection();
 }
@@ -74,6 +75,8 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 			{
 				m_currentPaper = nullptr;
 			}
+			
+			orxSound_Play( m_stampSound );
 			
 			return 1;
 		}
