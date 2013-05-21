@@ -47,6 +47,7 @@ private:
 	orxCLOCK*					m_clock = nullptr;
 	orxSOUND*					m_paperSpawnSound = nullptr;
 	orxSOUND*					m_stampSound = nullptr;
+	orxSOUND*					m_honkSound = nullptr;
 	Paper*						m_currentPaper = nullptr;
 	bool						m_running = false;
 	double						m_elapsed = 0;

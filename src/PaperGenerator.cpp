@@ -23,8 +23,12 @@ PaperGenerator::PaperGenerator()
 	
 	string soundName = orxConfig_GetString( "PaperSpawnSound" );
 	m_paperSpawnSound = orxSound_CreateFromConfig( soundName.c_str() );
+	
 	soundName = orxConfig_GetString( "StampSound" );
 	m_stampSound = orxSound_CreateFromConfig( soundName.c_str() );
+	
+	soundName = orxConfig_GetString( "HonkSound" );
+	m_honkSound = orxSound_CreateFromConfig( soundName.c_str() );
 	
 	orxConfig_PopSection();
 }
@@ -76,12 +80,19 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 				m_currentPaper = nullptr;
 			}
 			
-			orxSound_Play( m_stampSound );
+			if( m_stampSound )
+			{
+				orxSound_Play( m_stampSound );
+			}
 			
 			return 1;
 		}
 		else
 		{
+			if( m_honkSound )
+			{
+				orxSound_Play( m_honkSound );
+			}
 			return m_scorePenalty;
 		}
 	}
