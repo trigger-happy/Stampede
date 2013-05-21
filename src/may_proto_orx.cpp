@@ -5,6 +5,9 @@
 
 static may_proto_orx* s_instance = nullptr;
 
+const static std::string s_stampSoundName = "s_Stamp";
+const static std::string s_paperSoundName = "s_Paper";
+
 namespace cb = callbacks;
 using boost::format;
 
@@ -65,24 +68,28 @@ void may_proto_orx::setupScenes()
 	};
 	
 	// game scene input handling
-	gameScene->frameUpdate = [this]( float dt )
+	gameScene->frameUpdate = [this, gameScene]( float dt )
 	{
 		int32_t result = 0;
 		if( IS_INPUT_DOWN( "BluePaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
+			orxSound_Play( gameScene->sounds[s_stampSoundName] );
 		}
 		else if( IS_INPUT_DOWN( "GreenPaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
+			orxSound_Play( gameScene->sounds[s_stampSoundName] );
 		}
 		else if( IS_INPUT_DOWN( "RedPaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::RED );
+			orxSound_Play( gameScene->sounds[s_stampSoundName] );
 		}
 		else if( IS_INPUT_DOWN( "JunkPaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::JUNK );
+			orxSound_Play( gameScene->sounds[s_stampSoundName] );
 		}
 		
 		m_score += result;

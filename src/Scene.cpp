@@ -80,6 +80,17 @@ Scene::Scene( const string& n )
 		}
 	}
 	
+	if( orxConfig_HasValue( "Sounds" ) )
+	{
+		auto numSounds = orxConfig_GetListCounter( "Sounds" );
+		for( int i = 0; i < numSounds; ++i )
+		{
+			auto soundName = orxConfig_GetListString( "Sounds", i );
+			auto sfx = orxSound_CreateFromConfig( soundName );
+			sounds.emplace( make_pair( soundName, sfx ) );
+		}
+	}
+	
 	// load up the music if there is
 	if( orxConfig_HasValue( "Music" ) )
 	{
