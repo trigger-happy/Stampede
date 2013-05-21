@@ -45,6 +45,7 @@ public:
 	frameEvent frameUpdate;
 	
 	std::unordered_map<std::string, orxOBJECT*>	objects;
+	orxSOUND*									music = nullptr;
 	std::string									inputSet;
 	std::string									name;
 };

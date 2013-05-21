@@ -33,6 +33,12 @@ Scene::Scene( const string& n )
 			orxObject_Enable( iter->second, false );
 			++iter;
 		}
+		
+		// stop the bgm
+		if( music )
+		{
+			orxSound_Stop( music );
+		}
 	};
 	
 	onSleep = [this](){};
@@ -46,6 +52,12 @@ Scene::Scene( const string& n )
 			++iter;
 		}
 		orxInput_SelectSet( inputSet.c_str() );
+		
+		// play the bgm
+		if( music )
+		{
+			orxSound_Play( music );
+		}
 	};
 	onPush = [this](){};
 	onResume = [this](){};
@@ -66,6 +78,13 @@ Scene::Scene( const string& n )
 			// disable the object for now
 			orxObject_Enable( object, false );
 		}
+	}
+	
+	// load up the music if there is
+	if( orxConfig_HasValue( "Music" ) )
+	{
+		string musicEntry = orxConfig_GetString( "Music" );
+		music = orxSound_CreateFromConfig( musicEntry.c_str() );
 	}
 	
 	inputSet = orxConfig_GetString( "InputSet" );
