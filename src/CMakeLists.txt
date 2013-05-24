@@ -4,6 +4,10 @@ add_executable(
 	WIN32
 	MACOSX_BUNDLE
 	
+	StamperHands.h
+	StamperHands.cpp
+	ClientHand.h
+	ClientHand.cpp
 	SubmitterHands.h
 	SubmitterHands.cpp
 	Scene.h
