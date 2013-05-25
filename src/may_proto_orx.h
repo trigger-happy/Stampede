@@ -3,6 +3,7 @@
 #include <orx.h>
 #include "SceneManager.h"
 #include "PaperGenerator.h"
+#include "StamperHands.h"
 
 class may_proto_orx
 {
@@ -30,6 +31,7 @@ private:
 	orxOBJECT*			m_scoreDisplay;
 	PaperGeneratorPtr	m_generator;
 	SceneManagerPtr		m_sceneManager;
+	StamperHandsPtr		m_stamperHands;
 	
 	int32_t				m_score = 0;
 };

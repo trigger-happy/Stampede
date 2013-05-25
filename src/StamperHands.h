@@ -20,12 +20,34 @@
 
 #ifndef STAMPERHANDS_H
 #define STAMPERHANDS_H
+#include <unordered_map>
+#include <string>
+#include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
+#include <orx.h>
+#include "Paper.h"
 
 class StamperHands : public boost::noncopyable
 {
 public:
+	StamperHands();
+	
+	void show( bool s );
+	
+	void stamp( Paper::PAPER_TYPE type );
+	
+	orxOBJECT* activeStamp() const;
+	orxOBJECT* idleStamp();
+	
+	// this is meant for the callback
+	void stampingFinished();
+	
+	
 private:
+	std::unordered_map<std::string, orxOBJECT*>	m_stampHands;
+	orxOBJECT*									m_activeStamp = nullptr;
 };
+
+typedef boost::shared_ptr<StamperHands> StamperHandsPtr;
 
 #endif // STAMPERHANDS_H

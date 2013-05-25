@@ -45,6 +45,9 @@ may_proto_orx::may_proto_orx()
 	m_generator->atGameOver( std::bind( &may_proto_orx::onGameOver, this ) );
 	
 	m_sceneManager = SceneManagerPtr( new SceneManager() );
+	
+	m_stamperHands = StamperHandsPtr( new StamperHands() );
+	
 	setupScenes();
 }
 
@@ -61,6 +64,7 @@ void may_proto_orx::setupScenes()
 		if( IS_INPUT_DOWN( "GoToGameScene" ) )
 		{
 			m_sceneManager->pushScene( "GameScene" );
+			m_stamperHands->show( true );
 		}
 	};
 	
@@ -71,14 +75,17 @@ void may_proto_orx::setupScenes()
 		if( IS_INPUT_DOWN( "BluePaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::BLUE );
+			m_stamperHands->stamp( PaperGenerator::STAMP::BLUE );
 		}
 		else if( IS_INPUT_DOWN( "GreenPaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::GREEN );
+			m_stamperHands->stamp( PaperGenerator::STAMP::GREEN );
 		}
 		else if( IS_INPUT_DOWN( "RedPaper" ) )
 		{
 			result = m_generator->stampPaper( PaperGenerator::STAMP::RED );
+			m_stamperHands->stamp( PaperGenerator::STAMP::RED );
 		}
 		else if( IS_INPUT_DOWN( "JunkPaper" ) )
 		{
