@@ -1,12 +1,16 @@
 #include <functional>
+#include <string>
 #include <boost/format.hpp>
 #include "callbacks.h"
 #include "may_proto_orx.h"
 
 static may_proto_orx* s_instance = nullptr;
 
+using namespace std;
 namespace cb = callbacks;
 using boost::format;
+
+const static string c_gameOverMessage = "Gameover, your score is: %1%. Press space to start over.";
 
 #define IS_INPUT_DOWN(x) orxInput_HasNewStatus( x ) && orxInput_IsActive( x )
 
@@ -159,7 +163,8 @@ void may_proto_orx::updateScoreDisplay()
 
 void may_proto_orx::onGameOver()
 {
-	format msg = format( "Gameover, your score is: %1%" ) % m_score;
+
+	format msg = format( c_gameOverMessage ) % m_score;
 	orxObject_SetTextString( m_scoreDisplay, msg.str().c_str() );
 	orxInput_SelectSet( "GameOverInput" );
 }
