@@ -115,6 +115,15 @@ void may_proto_orx::setupScenes()
 		{
 			m_generator->reset();
 		}
+
+		// this one is for when the game is over
+		if( IS_INPUT_DOWN( "BackToTitleScene" ) )
+		{
+			m_score = 0;
+			m_stamperHands->show( false );
+			m_generator->reset();
+			m_sceneManager->popScene();
+		}
 	};
 	
 	gameScene->onPush = [this]()
@@ -152,4 +161,5 @@ void may_proto_orx::onGameOver()
 {
 	format msg = format( "Gameover, your score is: %1%" ) % m_score;
 	orxObject_SetTextString( m_scoreDisplay, msg.str().c_str() );
+	orxInput_SelectSet( "GameOverInput" );
 }

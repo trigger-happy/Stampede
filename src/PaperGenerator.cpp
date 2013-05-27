@@ -56,6 +56,16 @@ void PaperGenerator::reset()
 {
 	stop();
 	m_elapsed = 0;
+
+	for( auto p : m_paperStack )
+	{
+		p->show( false );
+	}
+	m_paperStack.clear();
+
+	m_currentPaper->show( false );
+
+	m_currentPaper = nullptr;
 }
 
 void PaperGenerator::stop()

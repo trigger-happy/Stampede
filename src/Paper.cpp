@@ -53,3 +53,8 @@ void Paper::dropToStack( const orxVECTOR& pos )
 {
 	//TODO implement me
 }
+
+void Paper::show( bool b )
+{
+	orxObject_Enable( m_object, b );
+}

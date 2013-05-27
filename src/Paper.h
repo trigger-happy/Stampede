@@ -27,6 +27,8 @@ public:
 	void moveToCenter();
 	void moveOutOfTable();
 	void dropToStack( const orxVECTOR& pos );
+
+	void show( bool b );
 	
 private:
 	PAPER_TYPE	m_type;
