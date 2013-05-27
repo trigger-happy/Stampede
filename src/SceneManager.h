@@ -42,6 +42,6 @@ private:
 	std::stack<ScenePtr>						m_sceneStack;
 };
 
-typedef boost::shared_ptr<SceneManager> SceneManagerPtr;
+typedef std::shared_ptr<SceneManager> SceneManagerPtr;
 
 #endif // SCENEMANAGER_H

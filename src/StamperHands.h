@@ -22,7 +22,7 @@
 #define STAMPERHANDS_H
 #include <unordered_map>
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/noncopyable.hpp>
 #include <orx.h>
 #include "Paper.h"
@@ -48,6 +48,6 @@ private:
 	orxOBJECT*									m_activeStamp = nullptr;
 };
 
-typedef boost::shared_ptr<StamperHands> StamperHandsPtr;
+typedef std::shared_ptr<StamperHands> StamperHandsPtr;
 
 #endif // STAMPERHANDS_H

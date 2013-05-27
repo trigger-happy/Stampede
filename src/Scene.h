@@ -51,6 +51,6 @@ public:
 	std::string									name;
 };
 
-typedef boost::shared_ptr<Scene> ScenePtr;
+typedef std::shared_ptr<Scene> ScenePtr;
 
 #endif // SCENE_H

@@ -66,6 +66,6 @@ private:
 	GameOverFunc				m_onGameOver;
 };
 
-typedef boost::shared_ptr<PaperGenerator> PaperGeneratorPtr;
+typedef std::shared_ptr<PaperGenerator> PaperGeneratorPtr;
 
 #endif // PAPERGENERATOR_H

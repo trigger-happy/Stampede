@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <array>
+#include <cassert>
 #include "StamperHands.h"
 
 using namespace std;
