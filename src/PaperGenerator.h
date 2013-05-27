@@ -7,6 +7,7 @@
 #include <boost/pool/object_pool.hpp>
 #include <orx.h>
 #include "Paper.h"
+#include "ClientHand.h"
 
 class PaperGenerator : public boost::noncopyable
 {
@@ -52,6 +53,7 @@ private:
 	bool						m_running = false;
 	double						m_elapsed = 0;
 	double						m_nextPaperSpawn = 0;
+	ClientHandPtr				m_clientHand;
 	
 	// config vars
 	int32_t						m_maxStackSize = 0;

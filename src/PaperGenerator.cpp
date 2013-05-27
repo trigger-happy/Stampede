@@ -31,6 +31,8 @@ PaperGenerator::PaperGenerator()
 	m_honkSound = orxSound_CreateFromConfig( soundName.c_str() );
 	
 	orxConfig_PopSection();
+
+	m_clientHand = ClientHandPtr( new ClientHand() );
 }
 
 void PaperGenerator::clockUpdate( const orxCLOCK_INFO* clockInfo )
@@ -66,6 +68,8 @@ void PaperGenerator::reset()
 	m_currentPaper->show( false );
 
 	m_currentPaper = nullptr;
+
+	m_clientHand->reset();
 }
 
 void PaperGenerator::stop()
@@ -84,6 +88,7 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 			{
 				setCurrentPaper( m_paperStack.back() );
 				m_paperStack.pop_back();
+				m_clientHand->setOffset( m_paperStackYOffset );
 			}
 			else
 			{
@@ -112,6 +117,8 @@ int32_t PaperGenerator::stampPaper( STAMP stamp )
 
 void PaperGenerator::spawnPaper()
 {
+	m_clientHand->dropPaper();
+
 	Paper::PAPER_TYPE type = static_cast<Paper::PAPER_TYPE>( ( rand() % 3 ) );
 	auto temp = m_paperPool.construct( type );
 	assert( temp );
@@ -147,6 +154,8 @@ void PaperGenerator::addPaperToStack( Paper* paper )
 	paper->setPosition( pos );
 	
 	m_paperStack.emplace_back( paper );
+
+	m_clientHand->setOffset( -m_paperStackYOffset );
 	
 	if( m_paperStack.size() >= m_maxStackSize )
 	{

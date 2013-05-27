@@ -20,12 +20,35 @@
 
 #ifndef CLIENTHAND_H
 #define CLIENTHAND_H
+#include <unordered_map>
+#include <string>
 #include <boost/noncopyable.hpp>
+#include <memory>
+#include <orx.h>
 
 class ClientHand : public boost::noncopyable
 {
 public:
+	ClientHand();
+
+	void dropPaper();
+	void setOffset( float offset );
+	void reset();
+
+	orxOBJECT* activeHand() const
+	{
+		return m_activeHand;
+	}
+
+	// meant for the callback, don't call this manually
+	void droppingFinished();
+
 private:
+	std::unordered_map<std::string, orxOBJECT*>	m_hands;
+	orxOBJECT*									m_activeHand = nullptr;
+	float										m_offset = 0;
 };
+
+typedef std::shared_ptr<ClientHand> ClientHandPtr;
 
 #endif // CLIENTHAND_H
