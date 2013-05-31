@@ -59,6 +59,8 @@ void may_proto_orx::setupScenes()
 {
 	auto titleScene = m_sceneManager->getScene( "TitleScene" );
 	auto gameScene = m_sceneManager->getScene( "GameScene" );
+	auto creditsScene = m_sceneManager->getScene( "CreditsScene" );
+	auto helpScene = m_sceneManager->getScene( "HelpScene" );
 	
 	m_scoreDisplay = gameScene->objects.at( "ScoreDisplay" );
 	
@@ -70,7 +72,26 @@ void may_proto_orx::setupScenes()
 			m_sceneManager->pushScene( "GameScene" );
 			m_stamperHands->show( true );
 		}
+		else if( IS_INPUT_DOWN( "GoToCreditsScene" ) )
+		{
+			m_sceneManager->pushScene( "CreditsScene" );
+		}
+		else if( IS_INPUT_DOWN( "GoToHelpScene" ) )
+		{
+			m_sceneManager->pushScene( "HelpScene" );
+		}
 	};
+	
+	// credits and help scene input handling
+	Scene::frameEvent simpleInput = [this]( float dt )
+	{
+		if( IS_INPUT_DOWN( "BackToTitleScene" ) )
+		{
+			m_sceneManager->popScene();
+		}
+	};
+	creditsScene->frameUpdate = simpleInput;
+	helpScene->frameUpdate = simpleInput;
 	
 	// game scene input handling
 	gameScene->frameUpdate = [this, gameScene]( float dt )
