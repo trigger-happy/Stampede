@@ -1,5 +1,5 @@
 add_executable(
-	may_proto_orx
+	Stampede
 	
 	WIN32
 	MACOSX_BUNDLE
@@ -24,15 +24,8 @@ add_executable(
 )
 
 target_link_libraries(
-	may_proto_orx
+	Stampede
 	${Boost_LIBRARIES}
 	${ORX_LIBRARIES}
 	${ORX_EXTERN_LIBS}
 )
-
-# install(
-# 	TARGETS may_proto_orx
-# 	BUNDLE DESTINATION ${CMAKE_BUILD_TYPE}
-# 	RUNTIME DESTINATION ${CMAKE_BUILD_TYPE}
-# 	CONFIGURATIONS All
-# )

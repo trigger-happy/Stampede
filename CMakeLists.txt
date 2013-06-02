@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(may_proto_orx)
+project(Stampede)
 
 set(CMAKE_DEBUG_FOSTFIX "d")
 
