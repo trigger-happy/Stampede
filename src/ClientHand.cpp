@@ -32,7 +32,7 @@ orxSTATUS orxFASTCALL dropFXEvent( const orxEVENT* event )
 	payload = static_cast<orxFX_EVENT_PAYLOAD*>( event->pstPayload );
 	if( event->eID == orxFX_EVENT_STOP )
 	{
-		if( strcmp( payload->zFXName, "fx_MoveRight" ) )
+		if( strcmp( payload->zFXName, "fx_MoveRight" ) == 0 )
 		{
 			if( s_instance->activeHand() )
 			{
