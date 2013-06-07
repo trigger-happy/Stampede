@@ -45,12 +45,12 @@ may_proto_orx::may_proto_orx()
 	m_clock = orxClock_FindFirst( orx2F( -1.0f ), orxCLOCK_TYPE_CORE );
 	orxClock_Register( m_clock, cb::clockUpdate<may_proto_orx>, this, orxMODULE_ID_MAIN, orxCLOCK_PRIORITY_NORMAL );
 	
-	m_generator = PaperGeneratorPtr( new PaperGenerator() );
+	m_generator = std::make_shared<PaperGenerator>();
 	m_generator->atGameOver( std::bind( &may_proto_orx::onGameOver, this ) );
 	
-	m_sceneManager = SceneManagerPtr( new SceneManager() );
+	m_sceneManager = std::make_shared<SceneManager>();
 	
-	m_stamperHands = StamperHandsPtr( new StamperHands() );
+	m_stamperHands = std::make_shared<StamperHands>();
 	
 	setupScenes();
 }

@@ -31,7 +31,7 @@ SceneManager::SceneManager()
 	for( int32_t i = 0; i < numScenes; ++i )
 	{
 		auto sceneName = orxConfig_GetListString( "Scenes", i );
-		ScenePtr temp = ScenePtr( new Scene( sceneName ) );
+		ScenePtr temp = std::make_shared<Scene>( sceneName );
 		m_scenes[sceneName] = temp;
 	}
 	

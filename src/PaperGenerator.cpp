@@ -32,7 +32,7 @@ PaperGenerator::PaperGenerator()
 	
 	orxConfig_PopSection();
 
-	m_clientHand = ClientHandPtr( new ClientHand() );
+	m_clientHand = std::make_shared<ClientHand>();
 }
 
 void PaperGenerator::clockUpdate( const orxCLOCK_INFO* clockInfo )
